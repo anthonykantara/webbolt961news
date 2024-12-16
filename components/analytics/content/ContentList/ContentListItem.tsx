@@ -1,4 +1,3 @@
-```typescript
 "use client";
 
 import { ContentTypeIcon } from "../ContentTypeIcon";
@@ -44,4 +43,3 @@ export function ContentListItem({ item }: ContentListItemProps) {
     </div>
   );
 }
-```

@@ -1,4 +1,3 @@
-```typescript
 "use client";
 
 import { Card } from "@/components/ui/card";
@@ -6,7 +5,7 @@ import { TrendingUp, TrendingDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MetricBreakdown } from "./MetricBreakdown";
 import { UserTypeBreakdown } from "./UserTypeBreakdown";
-import type { Metric } from "../types";
+import type { Metric } from "../utils/types";
 
 interface MetricCardProps {
   metric: Metric;
@@ -41,4 +40,3 @@ export function MetricCard({ metric }: MetricCardProps) {
     </Card>
   );
 }
-```

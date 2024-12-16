@@ -1,4 +1,3 @@
-```typescript
 "use client";
 
 interface TopicsListProps {
@@ -23,4 +22,3 @@ export function TopicsList({ section, topics }: TopicsListProps) {
     </div>
   );
 }
-```

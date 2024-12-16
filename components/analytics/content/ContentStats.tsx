@@ -1,4 +1,3 @@
-```typescript
 "use client";
 
 import { Card } from "@/components/ui/card";
@@ -79,4 +78,3 @@ export function ContentStats({ views, users, engagement }: ContentStatsProps) {
     </div>
   );
 }
-```

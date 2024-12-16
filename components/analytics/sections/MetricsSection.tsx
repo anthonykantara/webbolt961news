@@ -1,17 +1,16 @@
-```typescript
 "use client";
 
 import { Card } from "@/components/ui/card";
 import { MetricCard } from "../metrics/MetricCard";
 import { useMetrics } from "../hooks/useMetrics";
-import type { DateRange } from "../types";
+import type { DateRange } from "../utils/types";
 
 interface MetricsSectionProps {
   dateRange: DateRange;
 }
 
 export function MetricsSection({ dateRange }: MetricsSectionProps) {
-  const { metrics } = useMetrics(dateRange);
+  const { metrics } = useMetrics(/*dateRange*/);
 
   return (
     <Card className="p-6">
@@ -24,4 +23,3 @@ export function MetricsSection({ dateRange }: MetricsSectionProps) {
     </Card>
   );
 }
-```

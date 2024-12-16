@@ -1,4 +1,3 @@
-```typescript
 "use client";
 
 import { FileText, Zap, Video } from "lucide-react";
@@ -19,4 +18,3 @@ export function ContentTypeIcon({ type, className }: ContentTypeIconProps) {
       return <Video className={cn("h-4 w-4 text-purple-500", className)} />;
   }
 }
-```

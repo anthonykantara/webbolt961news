@@ -1,9 +1,8 @@
-```typescript
 "use client";
 
 import { useMemo } from "react";
 import { formatCurrency, formatNumber } from "../utils/formatting";
-import type { Metric } from "../types";
+import type { Metric } from "../utils/types";
 
 export function useMetrics() {
   const metrics = useMemo<Metric[]>(() => [
@@ -39,4 +38,3 @@ export function useMetrics() {
 
   return { metrics };
 }
-```

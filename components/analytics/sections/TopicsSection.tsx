@@ -1,9 +1,8 @@
-```typescript
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { TopicsList } from "../topics/TopicsList";
-import { TopicsChart } from "../topics/TopicsChart";
+import { TopicsList } from "../content/TopicsList";
+// import { TopicsChart } from "../content/TopicsChart";
 import { useTopicsData } from "../hooks/useTopicsData";
 import type { DateRange } from "../types";
 
@@ -24,10 +23,9 @@ export function TopicsSection({ dateRange }: TopicsSectionProps) {
         </div>
         <div>
           <h3 className="text-sm font-medium text-gray-500 mb-4">Section Performance</h3>
-          <TopicsChart sections={sections} />
+          {/* <TopicsChart sections={sections} /> */}
         </div>
       </div>
     </Card>
   );
 }
-```

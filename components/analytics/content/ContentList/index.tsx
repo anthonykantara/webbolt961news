@@ -1,4 +1,3 @@
-```typescript
 "use client";
 
 import { ContentListItem } from "./ContentListItem";
@@ -6,6 +5,7 @@ import { ContentSearch } from "../ContentSearch";
 import { ContentFilters } from "../ContentFilters";
 import { useContentData } from "../../hooks/useContentData";
 import type { DateRange } from "../../types";
+import { useState } from "react";
 
 interface ContentListProps {
   dateRange: DateRange;
@@ -36,4 +36,3 @@ export function ContentList({ dateRange }: ContentListProps) {
     </div>
   );
 }
-```

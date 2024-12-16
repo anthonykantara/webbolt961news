@@ -1,4 +1,3 @@
-```typescript
 "use client";
 
 interface TopicTagsProps {
@@ -23,4 +22,3 @@ export function TopicTags({ section, topics }: TopicTagsProps) {
     </div>
   );
 }
-```

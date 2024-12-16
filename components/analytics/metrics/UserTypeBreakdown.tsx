@@ -1,8 +1,7 @@
-```typescript
 "use client";
 
 import { formatNumber, formatPercentage } from "../utils/formatting";
-import type { UserTypes } from "../types";
+import type { UserTypes } from "../utils/types";
 
 interface UserTypeBreakdownProps {
   userTypes: UserTypes;
@@ -40,4 +39,3 @@ export function UserTypeBreakdown({ userTypes }: UserTypeBreakdownProps) {
     </div>
   );
 }
-```

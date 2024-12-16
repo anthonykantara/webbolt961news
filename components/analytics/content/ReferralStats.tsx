@@ -1,4 +1,3 @@
-```typescript
 "use client";
 
 import { Card } from "@/components/ui/card";
@@ -28,4 +27,3 @@ export function ReferralStats({ referrers }: ReferralStatsProps) {
     </Card>
   );
 }
-```

@@ -1,4 +1,3 @@
-```typescript
 "use client";
 
 import { Card } from "@/components/ui/card";
@@ -42,4 +41,3 @@ export function StatsCard({ title, stats }: StatsCardProps) {
     </Card>
   );
 }
-```

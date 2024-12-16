@@ -1,4 +1,3 @@
-```typescript
 "use client";
 
 import { Card } from "@/components/ui/card";
@@ -6,7 +5,7 @@ import { ContentList } from "../content/ContentList";
 import { ContentSearch } from "../content/ContentSearch";
 import { ContentFilters } from "../content/ContentFilters";
 import { useContentData } from "../hooks/useContentData";
-import type { DateRange } from "../types";
+import type { DateRange } from "../utils/types";
 
 interface ContentSectionProps {
   dateRange: DateRange;
@@ -28,4 +27,3 @@ export function ContentSection({ dateRange }: ContentSectionProps) {
     </Card>
   );
 }
-```

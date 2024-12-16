@@ -1,4 +1,3 @@
-```typescript
 import { FileText, Zap, Video } from "lucide-react";
 import type { ContentTypeIcon } from "./types";
 
@@ -38,4 +37,3 @@ export function formatPercentage(value: number, total: number): string {
 export function formatCurrency(value: number): string {
   return `$${value.toLocaleString()}`;
 }
-```
