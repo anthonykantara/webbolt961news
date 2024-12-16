@@ -10,3 +10,9 @@ export function formatDuration(seconds: number): string {
   
   return parts.length > 0 ? parts.join(":") : "0m";
 }
+
+export function formatStreak(streak: number): string {
+  if (streak === 0) return "";
+  if (streak === 1) return "1x streak";
+  return `${streak}x streak`;
+}

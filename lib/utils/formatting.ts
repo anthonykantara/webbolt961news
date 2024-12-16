@@ -24,6 +24,22 @@ export function formatPercentage(value: number, total: number): string {
   return `${Math.round((value / total) * 100)}%`;
 }
 
+export function formatMetricValue(value: number, metric: string): string {
+  switch (metric) {
+    case "views":
+    case "average":
+      return value.toLocaleString();
+    case "engagement":
+      return `${value.toLocaleString()} interactions`;
+    case "shares":
+      return `${value.toLocaleString()} shares`;
+    case "speed":
+      return `${value} minutes`;
+    default:
+      return value.toString();
+  }
+}
+
 /**
  * Format a duration in seconds to HH:MM:SS
  */
