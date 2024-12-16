@@ -43,7 +43,6 @@ const NAVIGATION_ITEMS = [
     label: "Content",
     icon: FileText,
     collapsible: true,
-    href: "/news/content",
     subItems: [
       {
         label: "Article",
