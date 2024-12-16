@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`} suppressHydrationWarning>
-        <div className="flex min-h-screen bg-gray-50 relative">
+        <div className="flex min-h-screen bg-gray-50 relative overflow-hidden">
           <Sidebar />
           <main className={cn(
             "flex-1 transition-[margin] duration-300 ease-in-out",

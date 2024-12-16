@@ -104,11 +104,11 @@ export function Sidebar() {
       "transition-[width] duration-300 ease-in-out",
       isCollapsed ? "w-[72px]" : "w-[220px]"
     )}>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `document.documentElement.style.setProperty('--sidebar-width', '${isCollapsed ? "72px" : "220px"}')`
-        }}
-      />
+      <style jsx global>{`
+        :root {
+          --sidebar-width: ${isCollapsed ? "72px" : "220px"};
+        }
+      `}</style>
       <div className={cn(
         "flex items-center transition-all duration-300",
         isCollapsed ? "px-4 py-6 justify-center" : "px-6 py-6"
