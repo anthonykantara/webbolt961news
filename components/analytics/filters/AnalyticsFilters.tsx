@@ -19,21 +19,16 @@ export function AnalyticsFilters() {
         </SelectContent>
       </Select>
 
-      <Select defaultValue="all-staff">
+      <Select defaultValue="all-platforms">
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Staff Member" />
+          <SelectValue placeholder="Platform" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all-staff">All Staff</SelectItem>
-          <SelectItem value="editors">Editors</SelectItem>
-          <SelectItem value="writers">Writers</SelectItem>
+          <SelectItem value="all-platforms">All Platforms</SelectItem>
+          <SelectItem value="web">Web</SelectItem>
+          <SelectItem value="app">App</SelectItem>
         </SelectContent>
       </Select>
-
-      <Button variant="outline" className="ml-auto">
-        <Download className="h-4 w-4 mr-2" />
-        Export Data
-      </Button>
     </div>
   );
 }

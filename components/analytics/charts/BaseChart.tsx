@@ -1,17 +1,27 @@
 "use client";
 
-import { ReactNode } from "react";
-import { ResponsiveContainer } from "recharts";
+import { ReactNode } from 'react';
+import { ResponsiveContainer } from 'recharts';
+import { cn } from '@/lib/utils';
 
 interface BaseChartProps {
   height?: number;
   children: ReactNode;
+  className?: string;
+  background?: boolean;
 }
 
-export function BaseChart({ height = 200, children }: BaseChartProps) {
+export function BaseChart({ height = 300, children, className, background = false }: BaseChartProps) {
   return (
-    <div style={{ height: `${height}px` }}>
-      <ResponsiveContainer width="100%" height="100%">
+    <div 
+      className={cn(
+        "w-full rounded-lg",
+        background && "bg-gray-50/50 p-4",
+        className
+      )} 
+      style={{ height }}
+    >
+      <ResponsiveContainer>
         {children}
       </ResponsiveContainer>
     </div>
