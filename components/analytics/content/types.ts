@@ -1,4 +1,3 @@
-```typescript
 export interface ContentStats {
   views: number;
   reactions: number;
@@ -35,4 +34,3 @@ export interface ContentTypeIcon {
   icon: JSX.Element;
   label: string;
 }
-```

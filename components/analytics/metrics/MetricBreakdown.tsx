@@ -1,4 +1,3 @@
-```typescript
 "use client";
 
 import { formatCurrency, formatNumber, formatPercentage } from "../utils/formatting";
@@ -26,4 +25,3 @@ export function MetricBreakdown({ breakdown, total }: MetricBreakdownProps) {
     </div>
   );
 }
-```

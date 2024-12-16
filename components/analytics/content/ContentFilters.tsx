@@ -3,7 +3,7 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
-import type { ContentSortField } from "../types";
+import type { ContentSortField } from "../utils/types";
 
 interface ContentFiltersProps {
   sortField: ContentSortField;

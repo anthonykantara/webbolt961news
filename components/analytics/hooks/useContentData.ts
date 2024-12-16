@@ -1,8 +1,7 @@
-```typescript
 "use client";
 
 import { useMemo } from "react";
-import type { ContentItem, DateRange } from "../types";
+import type { ContentItem, DateRange } from "../utils/types";
 
 export function useContentData(dateRange: DateRange) {
   const items = useMemo<ContentItem[]>(() => [
@@ -40,4 +39,3 @@ export function useContentData(dateRange: DateRange) {
 
   return { items };
 }
-```

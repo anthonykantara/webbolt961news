@@ -1,4 +1,3 @@
-```typescript
 export interface DateRange {
   from: Date;
   to: Date;
@@ -59,4 +58,3 @@ export interface ContentItem {
     views: number;
   }>;
 }
-```

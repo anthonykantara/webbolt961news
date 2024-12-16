@@ -1,4 +1,3 @@
-```typescript
 "use client";
 
 import { useMemo } from "react";
@@ -51,4 +50,3 @@ export function useTopicsData(dateRange: DateRange) {
 
   return { topics, sections };
 }
-```
