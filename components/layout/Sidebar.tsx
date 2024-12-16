@@ -124,7 +124,7 @@ export function Sidebar() {
           "flex items-center justify-center shadow-sm",
           "hover:bg-gray-50 transition-colors",
           "focus:outline-none focus:ring-2 focus:ring-red-100",
-          pathname === "/news/dashboard" ? "opacity-100" : "opacity-0 pointer-events-none"
+          // pathname === "/news/dashboard" ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
       >
         <ChevronLeft className={cn(
