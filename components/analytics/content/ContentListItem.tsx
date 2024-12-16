@@ -1,11 +1,11 @@
 "use client";
 
-import { ContentTypeIcon } from "../ContentTypeIcon";
-import { ContentStats } from "../ContentStats";
-import { ReferralStats } from "../ReferralStats";
-import { TopicTags } from "../TopicTags";
+import { ContentTypeIcon } from "./ContentTypeIcon";
+import { ContentStats } from "./ContentStats";
+import { ReferralStats } from "./ReferralStats";
+import { TopicTags } from "./TopicTags";
 import { formatDistanceToNow } from "date-fns";
-import type { ContentItem } from "../../types";
+import type { ContentItem } from "../types";
 
 interface ContentListItemProps {
   item: ContentItem;

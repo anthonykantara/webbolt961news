@@ -19,12 +19,12 @@ export function TopicsSection({ dateRange }: TopicsSectionProps) {
       <div className="grid grid-cols-2 gap-6">
         <div>
           <h3 className="text-sm font-medium text-gray-500 mb-4">Trending Topics</h3>
-          <TopicsList topics={topics} />
+          <TopicsList section={sections.map(section => section.name).join(", ")} topics={topics.map(topic => topic.name)} />
         </div>
-        <div>
+        {/* <div>
           <h3 className="text-sm font-medium text-gray-500 mb-4">Section Performance</h3>
-          {/* <TopicsChart sections={sections} /> */}
-        </div>
+          <TopicsChart sections={sections} />
+        </div> */}
       </div>
     </Card>
   );

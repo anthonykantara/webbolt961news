@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ContentListItem } from "./ContentList/ContentListItem";
+import { ContentListItem } from "./ContentListItem";
 import { ContentSearch } from "./ContentSearch";
 import { ContentFilters } from "./ContentFilters";
 import { useContentData } from "../hooks/useContentData";
