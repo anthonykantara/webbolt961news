@@ -5,7 +5,7 @@ import { TrendingUp, TrendingDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMetrics } from "@/lib/hooks/useMetrics";
 import { formatNumber, formatCurrency } from "@/lib/utils/formatting";
-import type { DateRange } from "@/lib/types/dashboard";
+import type { DateRange } from "../utils/types";
 
 interface CoreMetricsProps {
   dateRange: DateRange;

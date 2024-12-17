@@ -8,7 +8,7 @@ import { XAxis, YAxis } from "../charts/ChartAxis";
 import { ChartGrid } from "../charts/ChartGrid";
 import { ChartTooltip } from "../charts/ChartTooltip";
 import { CHART_COLORS, CHART_CONFIG } from "../charts/config";
-import type { DateRange } from "@/lib/types/dashboard";
+import type { DateRange } from "../utils/types";
 
 const data = [
   { source: "Direct", value: 30000, change: 12 },
@@ -40,17 +40,19 @@ export function TrafficMetrics({ dateRange }: TrafficMetricsProps) {
             <BaseChart height={400}>
               <BarChart data={data} layout="vertical">
                 <ChartGrid />
-                <XAxis type="number" />
+                <XAxis type="number" xAxisId={CHART_CONFIG.defaultAxisId.x} />
                 <YAxis 
                   dataKey="source" 
                   type="category" 
                   width={100}
+                  yAxisId={CHART_CONFIG.defaultAxisId.y}
                 />
                 <ChartTooltip />
                 <Bar 
                   dataKey="value" 
                   fill={CHART_COLORS.primary}
                   xAxisId={CHART_CONFIG.defaultAxisId.x}
+                  yAxisId={CHART_CONFIG.defaultAxisId.y}
                   radius={[0, 4, 4, 0]}
                 />
               </BarChart>

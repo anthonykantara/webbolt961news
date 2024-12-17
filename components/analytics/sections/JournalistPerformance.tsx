@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Search, ArrowUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { DateRange } from "@/lib/types/dashboard";
+import type { DateRange } from "../utils/types";
 
 interface JournalistStats {
   id: string;

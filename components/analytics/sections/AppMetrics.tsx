@@ -8,7 +8,7 @@ import { XAxis, YAxis } from "../charts/ChartAxis";
 import { ChartGrid } from "../charts/ChartGrid";
 import { ChartTooltip } from "../charts/ChartTooltip";
 import { CHART_COLORS, CHART_CONFIG } from "../charts/config";
-import type { DateRange } from "@/lib/types/dashboard";
+import type { DateRange } from "../utils/types";
 
 const openRateData = [
   { date: "Mon", rate: 65 },
@@ -41,8 +41,9 @@ export function AppMetrics({ dateRange }: AppMetricsProps) {
             <BaseChart>
               <LineChart data={openRateData}>
                 <ChartGrid />
-                <XAxis dataKey="date" />
+                <XAxis dataKey="date" xAxisId={CHART_CONFIG.defaultAxisId.x} />
                 <YAxis
+                  yAxisId={CHART_CONFIG.defaultAxisId.y}
                   tickFormatter={(value) => `${value}%`}
                 />
                 <ChartTooltip />
@@ -50,6 +51,8 @@ export function AppMetrics({ dateRange }: AppMetricsProps) {
                   type="monotone"
                   dataKey="rate"
                   stroke={CHART_COLORS.primary}
+                  xAxisId={CHART_CONFIG.defaultAxisId.x}
+                  yAxisId={CHART_CONFIG.defaultAxisId.y}
                   strokeWidth={2}
                   dot={false}
                 />
@@ -80,18 +83,22 @@ export function AppMetrics({ dateRange }: AppMetricsProps) {
             <BaseChart>
               <BarChart data={notificationData}>
                 <ChartGrid />
-                <XAxis dataKey="type" />
-                <YAxis />
+                <XAxis dataKey="type" xAxisId={CHART_CONFIG.defaultAxisId.x} />
+                <YAxis yAxisId={CHART_CONFIG.defaultAxisId.y} />
                 <ChartTooltip />
                 <Bar 
                   dataKey="sent" 
                   fill={CHART_COLORS.primary}
                   radius={[4, 4, 0, 0]}
+                  xAxisId={CHART_CONFIG.defaultAxisId.x}
+                  yAxisId={CHART_CONFIG.defaultAxisId.y}
                 />
                 <Bar 
                   dataKey="opened" 
                   fill={CHART_COLORS.secondary}
                   radius={[4, 4, 0, 0]}
+                  xAxisId={CHART_CONFIG.defaultAxisId.x}
+                  yAxisId={CHART_CONFIG.defaultAxisId.y}
                 />
               </BarChart>
             </BaseChart>

@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Search, ArrowUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { DateRange } from "@/lib/types/dashboard";
+import type { DateRange } from "../utils/types";
 
 interface ContentItem {
   id: string;

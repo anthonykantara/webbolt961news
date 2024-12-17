@@ -8,7 +8,7 @@ import { XAxis, YAxis } from "../charts/ChartAxis";
 import { ChartGrid } from "../charts/ChartGrid";
 import { ChartTooltip } from "../charts/ChartTooltip";
 import { CHART_COLORS, CHART_CONFIG } from "../charts/config";
-import type { DateRange } from "@/lib/types/dashboard";
+import type { DateRange } from "../utils/types";
 
 const data = [
   { date: "Jan", total: 4000, new: 2400, returning: 1600 },
@@ -46,13 +46,14 @@ export function UserGrowthMetrics({ dateRange, detailed = false }: UserGrowthMet
           <BaseChart>
             <AreaChart data={data}>
               <ChartGrid />
-              <XAxis dataKey="date" />
-              <YAxis />
+              <XAxis dataKey="date" xAxisId={CHART_CONFIG.defaultAxisId.x} />
+              <YAxis yAxisId={CHART_CONFIG.defaultAxisId.y} />
               <ChartTooltip />
               <Area
                 type="monotone"
                 dataKey="new"
                 xAxisId={CHART_CONFIG.defaultAxisId.x}
+                yAxisId={CHART_CONFIG.defaultAxisId.y}
                 stackId="1"
                 stroke={CHART_COLORS.primary}
                 fill={CHART_COLORS.primary}
@@ -62,6 +63,7 @@ export function UserGrowthMetrics({ dateRange, detailed = false }: UserGrowthMet
                 type="monotone"
                 dataKey="returning"
                 xAxisId={CHART_CONFIG.defaultAxisId.x}
+                yAxisId={CHART_CONFIG.defaultAxisId.y}
                 stackId="1"
                 stroke={CHART_COLORS.secondary}
                 fill={CHART_COLORS.secondary}
