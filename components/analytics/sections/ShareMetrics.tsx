@@ -8,7 +8,7 @@ import { XAxis, YAxis } from "../charts/ChartAxis";
 import { ChartGrid } from "../charts/ChartGrid";
 import { ChartTooltip } from "../charts/ChartTooltip";
 import { CHART_COLORS, CHART_CONFIG } from "../charts/config";
-import type { DateRange } from "@/lib/types/dashboard";
+import type { DateRange } from "../utils/types";
 
 const sharesByPlatform = [
   { platform: "WhatsApp", shares: 45000 },
@@ -35,7 +35,15 @@ const contentTypes = [
   { name: "Opinion", value: 10 }
 ];
 
-const COLORS = Object.values(CHART_COLORS);
+const COLORS: string[] = [
+  CHART_COLORS.primary,
+  CHART_COLORS.secondary,
+  CHART_COLORS.tertiary,
+  CHART_COLORS.quaternary,
+  CHART_COLORS.quinary,
+  ...Object.values(CHART_COLORS.background)
+];
+
 
 interface ShareMetricsProps {
   dateRange: DateRange;
@@ -87,13 +95,15 @@ export function ShareMetrics({ dateRange }: ShareMetricsProps) {
               <BaseChart>
                 <BarChart data={sharesByPlatform}>
                   <ChartGrid />
-                  <XAxis dataKey="platform" />
-                  <YAxis />
+                  <XAxis dataKey="platform" xAxisId={CHART_CONFIG.defaultAxisId.x} />
+                  <YAxis yAxisId={CHART_CONFIG.defaultAxisId.y} />
                   <ChartTooltip />
-                  <Bar 
-                    dataKey="shares" 
+                  <Bar
+                    dataKey="shares"
                     fill={CHART_COLORS.primary}
                     radius={[4, 4, 0, 0]}
+                    xAxisId={CHART_CONFIG.defaultAxisId.x}
+                    yAxisId={CHART_CONFIG.defaultAxisId.y}
                   />
                 </BarChart>
               </BaseChart>
@@ -127,7 +137,7 @@ export function ShareMetrics({ dateRange }: ShareMetricsProps) {
             <div className="grid grid-cols-2 gap-4">
               {contentTypes.map((type, index) => (
                 <div key={type.name} className="flex items-center gap-2">
-                  <div 
+                  <div
                     className="h-3 w-3 rounded-full"
                     style={{ backgroundColor: COLORS[index] }}
                   />
@@ -159,13 +169,14 @@ export function ShareMetrics({ dateRange }: ShareMetricsProps) {
             <BaseChart>
               <LineChart data={sharesTrend}>
                 <ChartGrid />
-                <XAxis dataKey="date" />
-                <YAxis />
+                <XAxis dataKey="date" xAxisId={CHART_CONFIG.defaultAxisId.x} />
+                <YAxis yAxisId={CHART_CONFIG.defaultAxisId.y} />
                 <ChartTooltip />
                 <Line
                   type="monotone"
                   dataKey="shares"
                   xAxisId={CHART_CONFIG.defaultAxisId.x}
+                  yAxisId={CHART_CONFIG.defaultAxisId.y}
                   stroke={CHART_COLORS.primary}
                   strokeWidth={2}
                   dot={false}
@@ -174,6 +185,7 @@ export function ShareMetrics({ dateRange }: ShareMetricsProps) {
                   type="monotone"
                   dataKey="referrals"
                   xAxisId={CHART_CONFIG.defaultAxisId.x}
+                  yAxisId={CHART_CONFIG.defaultAxisId.y}
                   stroke={CHART_COLORS.secondary}
                   strokeWidth={2}
                   dot={false}
