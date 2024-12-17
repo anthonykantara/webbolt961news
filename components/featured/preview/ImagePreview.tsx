@@ -3,13 +3,16 @@
 import { cn } from "@/lib/utils/styles";
 import { SwapButton } from "./SwapButton";
 import { VerticalControls } from "../controls/VerticalControls";
+import { VerticalModeSelector } from "./VerticalModeSelector";
 import type { ImageConfig } from "@/lib/types/featured";
+
+export type VerticalMode = "first" | "second" | "stacked";
 
 interface ImagePreviewProps {
   config: ImageConfig;
   format: "horizontal" | "vertical";
   onSwap?: () => void;
-  verticalMode?: "first" | "second" | "stacked";
+  verticalMode?: VerticalMode;
   onVerticalModeChange?: (mode: "first" | "second" | "stacked") => void;
   onVerticalSwap?: () => void;
 }

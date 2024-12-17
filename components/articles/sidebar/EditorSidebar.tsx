@@ -15,9 +15,11 @@ interface EditorSidebarProps {
   activeSection: string;
   status: ArticleStatus;
   authors: string[];
+  isSponsored: boolean;
   content: ArticleContent;
   timeTracking: TimeTrackingData;
   onAuthorsChange: (authors: string[]) => void;
+  onSponsoredChange: (sponsored: boolean) => void;
   onUnpublish: () => void;
   onDelete: () => void;
 }
@@ -26,9 +28,11 @@ export function EditorSidebar({
   activeSection,
   status,
   authors,
+  isSponsored,
   content,
   timeTracking,
   onAuthorsChange,
+  onSponsoredChange,
   onUnpublish,
   onDelete
 }: EditorSidebarProps) {
@@ -40,8 +44,10 @@ export function EditorSidebar({
             status={status}
             authors={authors}
             content={content}
+            isSponsored={isSponsored}
             timeTracking={timeTracking}
             onAuthorsChange={onAuthorsChange}
+            onSponsoredChange={onSponsoredChange}
             onUnpublish={onUnpublish}
             onDelete={onDelete}
           />

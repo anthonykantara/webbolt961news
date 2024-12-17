@@ -1,5 +1,14 @@
-import { redirect } from 'next/navigation';
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function ContentPage() {
-  redirect('/news/content/articles');
+  const router = useRouter();
+  
+  useEffect(() => {
+    router.push("/news/content/articles");
+  }, [router]);
+  
+  return null;
 }

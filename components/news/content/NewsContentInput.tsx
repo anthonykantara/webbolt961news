@@ -1,6 +1,8 @@
 "use client";
 
 import { Textarea } from "@/components/ui/textarea";
+import { EmojiPicker } from "./emoji";
+import { EmojiPicker } from "./emoji/EmojiPicker";
 import { cn } from "@/lib/utils";
 
 interface NewsContentInputProps {
@@ -18,6 +20,14 @@ export function NewsContentInput({
   className,
   direction = "ltr"
 }: NewsContentInputProps) {
+  const handleEmojiSelect = (emoji: string) => {
+    onChange(value + emoji);
+  };
+
+  const handleEmojiSelect = (emoji: string) => {
+    onChange(value + emoji);
+  };
+
   return (
     <div className="relative">
       <Textarea
@@ -31,6 +41,12 @@ export function NewsContentInput({
           className
         )}
       />
+      <div className="absolute right-3 top-3">
+        <EmojiPicker onEmojiSelect={handleEmojiSelect} />
+      </div>
+      <div className="absolute right-3 top-3">
+        <EmojiPicker onEmojiSelect={handleEmojiSelect} />
+      </div>
     </div>
   );
 }

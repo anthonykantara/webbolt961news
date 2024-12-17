@@ -7,5 +7,7 @@ export interface ImageConfig {
 export interface FeaturedImage {
   url: string;
   credit?: string;
+  altText?: string;
+  title?: string;
   type: "horizontal" | "vertical";
 }

@@ -14,14 +14,18 @@ export function ArticleEditor() {
   const router = useRouter();
   const [elapsedTime, setElapsedTime] = useState(0);
   const [activeSection, setActiveSection] = useState("content");
+  const [isScheduled, setIsScheduled] = useState(false);
+  const [scheduledDate, setScheduledDate] = useState<Date | null>(null);
   const {
     content,
     status,
     authors,
+    isSponsored,
     timeTracking,
     schedule,
     onContentChange,
     onAuthorsChange,
+    onSponsoredChange,
     onScheduleChange,
     onUnpublish,
     onDelete
@@ -48,7 +52,7 @@ export function ArticleEditor() {
 
   const renderSection = () => {
     if (activeSection === "featured") {
-      return <FeaturedImageGenerator />;
+      return <FeaturedImageGenerator seoKeyword={content.seoKeyword} />;
     }
     
     return (
@@ -79,12 +83,17 @@ export function ArticleEditor() {
             <EditorSidebar
               activeSection={activeSection}
               status={status}
+              isScheduled={isScheduled}
+              scheduledDate={scheduledDate}
               authors={authors}
+              isSponsored={isSponsored}
               schedule={schedule}
               content={content}
               timeTracking={timeTracking}
               onAuthorsChange={onAuthorsChange}
-              onScheduleChange={onScheduleChange}
+              onScheduleToggle={() => setIsScheduled(!isScheduled)}
+              onScheduleChange={setScheduledDate}
+              onSponsoredChange={onSponsoredChange}
               onUnpublish={onUnpublish}
               onDelete={handleDelete}
             />

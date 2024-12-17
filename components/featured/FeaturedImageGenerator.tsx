@@ -1,20 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { ImageUploadSection } from "./sections/ImageUploadSection";
 import { PreviewSection } from "./sections/PreviewSection";
 import { EnhanceSection } from "./sections/EnhanceSection";
 import { OutputSection } from "./sections/OutputSection";
 import { ModeToggle } from "./mode/ModeToggle";
+import { useFeaturedImage } from "@/lib/hooks/useFeaturedImage";
 import type { ImageConfig } from "@/lib/types/featured";
 
-export function FeaturedImageGenerator() {
+interface FeaturedImageGeneratorProps {
+  seoKeyword?: string;
+}
+
+export function FeaturedImageGenerator({ seoKeyword = "" }: FeaturedImageGeneratorProps) {
   const [horizontalConfig, setHorizontalConfig] = useState<ImageConfig>({
     mode: "single",
     images: [],
     alignment: "center"
   });
+
+  const { featuredImage, updateFeaturedImage } = useFeaturedImage(seoKeyword);
 
   const [verticalConfig, setVerticalConfig] = useState<ImageConfig>({
     mode: "single",
@@ -26,6 +33,17 @@ export function FeaturedImageGenerator() {
   const [isComplete, setIsComplete] = useState(false);
   const [verticalMode, setVerticalMode] = useState<"first" | "second" | "stacked">("stacked");
 
+  // Update featured image when horizontal config changes
+  useEffect(() => {
+    if (horizontalConfig.images.length > 0) {
+      updateFeaturedImage({
+        url: horizontalConfig.images[0],
+        type: "horizontal",
+        altText: "",
+        title: ""
+      });
+    }
+  }, [horizontalConfig.images, updateFeaturedImage]);
   const handleModeToggle = (isDual: boolean) => {
     const mode = isDual ? "dual" : "single";
     setHorizontalConfig(prev => ({ ...prev, mode }));
