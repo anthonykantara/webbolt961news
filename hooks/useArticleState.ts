@@ -13,6 +13,7 @@ export function useArticleState() {
   const [authors, setAuthors] = useState<string[]>([]);
   const [isScheduled, setIsScheduled] = useState(false);
   const [schedule, setSchedule] = useState<Date | null>(null);
+  const [isSponsored, setIsSponsored] = useState(false);
   const [timeTracking] = useState<TimeTrackingData>({
     writing: 0,
     editing: 0,
@@ -38,11 +39,13 @@ export function useArticleState() {
     content,
     status,
     authors,
+    isSponsored,
     isScheduled,
     schedule,
     timeTracking,
     onContentChange: handleContentChange,
     onAuthorsChange: setAuthors,
+    onSponsoredChange: setIsSponsored,
     onScheduleToggle: setIsScheduled,
     onScheduleChange: setSchedule,
     onUnpublish: handleUnpublish,

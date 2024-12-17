@@ -37,6 +37,7 @@ export interface TimeTrackingData {
 export interface ArticleContent {
   headline: string;
   blocks: Block[];
+  seoKeyword?: string;
 }
 
 export interface Article {
