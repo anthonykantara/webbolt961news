@@ -22,7 +22,6 @@ interface FloatingToolbarProps {
 
 export function FloatingToolbar({ onFormat }: FloatingToolbarProps) {
   const [showLinkInput, setShowLinkInput] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
   const [position, setPosition] = useState({ x: 100, y: 120 }); // Initial position
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
