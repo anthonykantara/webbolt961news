@@ -68,10 +68,6 @@ export function EditorSidebar({
         return <SectionPanel />;
       case "seo":
         return <SeoPanel />;
-      case "location":
-        return <LocationPanel />;
-      case "translate":
-        return <TranslatePanel />;
       case "distribute":
         return <DistributePanel />;
       case "editor":

@@ -9,6 +9,8 @@ import { FeaturedImageGenerator } from "@/components/featured/FeaturedImageGener
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useRouter } from "next/navigation";
 import { useArticleState } from "@/hooks/useArticleState";
+import { TranslatePanel } from "./sidebar/panels/TranslatePanel";
+import { LocationPanel } from "./sidebar/panels/LocationPanel";
 
 export function ArticleEditor() {
   const router = useRouter();
@@ -55,6 +57,14 @@ export function ArticleEditor() {
       return <FeaturedImageGenerator seoKeyword={content.seoKeyword} />;
     }
     
+    if (activeSection === "translate") {
+      return <TranslatePanel />;
+    }
+    
+    if (activeSection === "location") {
+      return <LocationPanel />;
+    }
+    
     return (
       <EditorContent
         content={content}
@@ -75,11 +85,11 @@ export function ArticleEditor() {
         <div className="flex">
           <div className={cn(
             "flex-1",
-            activeSection === "featured" && "ml-0"
+            !["featured", "translate", "location"].includes(activeSection) && "ml-0"
           )}>
             {renderSection()}
           </div>
-          {activeSection !== "featured" && (
+          {!["featured", "translate", "location"].includes(activeSection) && (
             <EditorSidebar
               activeSection={activeSection}
               status={status}
