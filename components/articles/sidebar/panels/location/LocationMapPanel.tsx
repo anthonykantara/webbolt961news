@@ -8,6 +8,7 @@ import { LocationSearch } from "./LocationSearch";
 import { LocationList } from "./LocationList";
 import { cn } from "@/lib/utils/styles";
 import type { Location } from "@/lib/types/location";
+import { LocationMap } from "./LocationMap";
 
 export function LocationMapPanel() {
   const [locations, setLocations] = useState<Location[]>([]);
@@ -34,6 +35,16 @@ export function LocationMapPanel() {
     ));
   };
 
+  const handleMapClick = (lat: number, lng: number) => {
+    const newLocation: Location = {
+      id: crypto.randomUUID(),
+      name: `Location at ${lat.toFixed(6)}, ${lng.toFixed(6)}`,
+      address: "Custom location",
+      coordinates: { lat, lng },
+    };
+    handleAddLocation(newLocation);
+  };
+
   return (
     <div className="h-[calc(100vh-84px)] flex">
       {/* Left panel */}
@@ -49,7 +60,7 @@ export function LocationMapPanel() {
 
       {/* Map */}
       <div className="flex-1 relative">
-        <Card className="absolute inset-0 m-4 overflow-hidden">
+        {/* <Card className="absolute inset-0 m-4 overflow-hidden">
           <div className="relative h-full bg-gray-100">
             <div className="absolute inset-0 flex items-center justify-center">
               <p className="text-gray-500">
@@ -68,7 +79,15 @@ export function LocationMapPanel() {
               })}
             />
           </div>
-        </Card>
+        </Card> */}
+        <LocationMap
+          locations={locations}
+          selectedLocation={selectedLocation}
+          onMarkerClick={setSelectedLocation}
+          onMarkerDragStart={() => {}}
+          onMarkerDragEnd={handleMarkerDragEnd}
+          onMapClick={handleMapClick}
+        />
       </div>
     </div>
   );
