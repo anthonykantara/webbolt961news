@@ -33,8 +33,8 @@ export function FeaturedImageGenerator({ seoKeyword = "" }: FeaturedImageGenerat
   const [isComplete, setIsComplete] = useState(false);
   const [verticalMode, setVerticalMode] = useState<"first" | "second" | "stacked">("stacked");
 
-  // Update featured image when horizontal config changes
   useEffect(() => {
+    // Update featured image when horizontal config changes
     if (horizontalConfig.images.length > 0) {
       updateFeaturedImage({
         url: horizontalConfig.images[0],
@@ -43,7 +43,22 @@ export function FeaturedImageGenerator({ seoKeyword = "" }: FeaturedImageGenerat
         title: ""
       });
     }
-  }, [horizontalConfig.images, updateFeaturedImage]);
+
+    // Sync vertical configuration with horizontal configuration
+    if (horizontalConfig.mode === "dual") {
+      if (horizontalConfig.images.length === 2) {
+        setVerticalConfig(prev => ({ ...prev, mode: "dual", images: horizontalConfig.images }));
+      } else {
+        // If dual mode but less than 2 images, set to single mode with no images
+        setVerticalConfig(prev => ({ ...prev, mode: "single", images: [] }));
+      }
+    } else {
+      // If single mode, set vertical to single with first (or only) image
+      setVerticalConfig(prev => ({ ...prev, mode: "single", images: horizontalConfig.images.slice(0, 1) }));
+    }
+
+  }, [horizontalConfig.mode, horizontalConfig.images, updateFeaturedImage]);
+  
   const handleModeToggle = (isDual: boolean) => {
     const mode = isDual ? "dual" : "single";
     setHorizontalConfig(prev => ({ ...prev, mode }));
@@ -61,13 +76,10 @@ export function FeaturedImageGenerator({ seoKeyword = "" }: FeaturedImageGenerat
 
   const handleHorizontalConfigChange = (newConfig: ImageConfig) => {
     setHorizontalConfig(newConfig);
-    // Update vertical config with the same images
-    setVerticalConfig(prev => ({
-      ...prev,
-      images: newConfig.mode === "single" 
-        ? [newConfig.images[0]]
-        : newConfig.images
-    }));
+    setVerticalConfig({
+      ...newConfig,
+      mode: newConfig.mode === "single" ? "single" : "dual"
+    });
   };
 
   const handleSwap = () => {
