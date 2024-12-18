@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
-import { Input, Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { BlockList } from "./blocks/BlockList";
 import { AddBlockButton } from "./blocks/AddBlockButton";
@@ -14,7 +14,6 @@ import type { Block } from "@/lib/types/article";
 interface EditorContentProps {
   content: {
     headline: string;
-    blocks: Block[];
     blocks: Block[];
   };
   onChange: (field: "headline" | "blocks", value: any) => void;

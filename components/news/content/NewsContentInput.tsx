@@ -2,7 +2,6 @@
 
 import { Textarea } from "@/components/ui/textarea";
 import { EmojiPicker } from "./emoji";
-import { EmojiPicker } from "./emoji/EmojiPicker";
 import { cn } from "@/lib/utils";
 
 interface NewsContentInputProps {
@@ -20,10 +19,6 @@ export function NewsContentInput({
   className,
   direction = "ltr"
 }: NewsContentInputProps) {
-  const handleEmojiSelect = (emoji: string) => {
-    onChange(value + emoji);
-  };
-
   const handleEmojiSelect = (emoji: string) => {
     onChange(value + emoji);
   };

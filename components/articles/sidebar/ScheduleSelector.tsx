@@ -57,14 +57,14 @@ export function ScheduleSelector({
         <Button
           variant="outline"
           className={cn(!isScheduled && "bg-gray-100")}
-          onClick={() => !isScheduled && onToggle()}
+          onClick={() => onToggle()}
         >
           Now
         </Button>
         <Button
           variant="outline"
           className={cn(isScheduled && "bg-gray-100")}
-          onClick={() => !isScheduled && onToggle()}
+          onClick={() => onToggle()}
         >
           Schedule
         </Button>

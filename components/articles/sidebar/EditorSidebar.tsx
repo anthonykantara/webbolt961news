@@ -16,12 +16,16 @@ interface EditorSidebarProps {
   status: ArticleStatus;
   authors: string[];
   isSponsored: boolean;
+  isScheduled: boolean;
+  scheduledDate: Date | null;
   content: ArticleContent;
   timeTracking: TimeTrackingData;
   onAuthorsChange: (authors: string[]) => void;
   onSponsoredChange: (sponsored: boolean) => void;
   onUnpublish: () => void;
   onDelete: () => void;
+  onScheduleToggle: () => void;
+  onScheduleChange: (date: Date | null) => void;
 }
 
 export function EditorSidebar({
@@ -29,10 +33,14 @@ export function EditorSidebar({
   status,
   authors,
   isSponsored,
+  isScheduled,
+  scheduledDate,
   content,
   timeTracking,
   onAuthorsChange,
   onSponsoredChange,
+  onScheduleToggle,
+  onScheduleChange,
   onUnpublish,
   onDelete
 }: EditorSidebarProps) {
@@ -50,20 +58,20 @@ export function EditorSidebar({
             onSponsoredChange={onSponsoredChange}
             onUnpublish={onUnpublish}
             onDelete={onDelete}
+            isScheduled={isScheduled}
+            scheduledDate={scheduledDate}
+            onScheduleToggle={onScheduleToggle}
+            onScheduleChange={onScheduleChange}
           />
         );
       case "section":
         return <SectionPanel />;
       case "seo":
         return <SeoPanel />;
-      case "location":
-        return <LocationPanel />;
-      case "translate":
-        return <TranslatePanel />;
       case "distribute":
         return <DistributePanel />;
       case "editor":
-        return <EditorPanel content={content} onAnalyze={() => {}} />;
+        return <EditorPanel content={content} onAnalyze={() => { }} />;
       default:
         return null;
     }
@@ -71,10 +79,10 @@ export function EditorSidebar({
   return (
     <div className={cn(
       "border-l border-[#F2F4F7] bg-white",
-      activeSection === "location" ? "w-[800px] p-0" : 
-      activeSection === "translate" ? "w-[800px] p-0" :
-      activeSection === "editor" ? "w-[500px] p-6 space-y-6" :
-      "w-[383px] p-6 space-y-6"
+      activeSection === "location" ? "w-[800px] p-0" :
+        activeSection === "translate" ? "w-[800px] p-0" :
+          activeSection === "editor" ? "w-[500px] p-6 space-y-6" :
+            "w-[383px] p-6 space-y-6"
     )}>
       {renderPanel()}
     </div>

@@ -36,7 +36,7 @@ export function FloatingToolbar({ onFormat }: FloatingToolbarProps) {
   return (
     <div 
       className={cn(
-        "fixed left-[calc(50%-500px)] top-[120px]",
+        "fixed left-[calc(20%-200px)] top-[120px]",
         "flex flex-col items-center gap-1 p-2",
         "bg-white/90 backdrop-blur-sm rounded-lg shadow-lg",
         "border border-gray-200",

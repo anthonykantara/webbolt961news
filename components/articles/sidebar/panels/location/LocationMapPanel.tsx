@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
@@ -8,31 +8,42 @@ import { LocationSearch } from "./LocationSearch";
 import { LocationList } from "./LocationList";
 import { cn } from "@/lib/utils/styles";
 import type { Location } from "@/lib/types/location";
+import { LocationMap } from "./LocationMap";
 
 export function LocationMapPanel() {
   const [locations, setLocations] = useState<Location[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
-  const handleAddLocation = (location: Location) => {
+  const handleAddLocation = useCallback((location: Location) => {
     setLocations(prev => [...prev, location]);
     setSelectedLocation(location);
-  };
+  }, {});
 
-  const handleRemoveLocation = (locationId: string) => {
+  const handleRemoveLocation = useCallback((locationId: string) => {
     setLocations(prev => prev.filter(loc => loc.id !== locationId));
     if (selectedLocation?.id === locationId) {
       setSelectedLocation(null);
     }
-  };
+  }, [selectedLocation]);
 
-  const handleMarkerDragEnd = (locationId: string, lat: number, lng: number) => {
+  const handleMarkerDragEnd = useCallback((locationId: string, lat: number, lng: number) => {
     setLocations(prev => prev.map(loc => 
       loc.id === locationId 
         ? { ...loc, coordinates: { lat, lng } }
         : loc
     ));
-  };
+  }, []);
+
+  const handleMapClick = useCallback((lat: number, lng: number) => {
+    const newLocation: Location = {
+      id: crypto.randomUUID(),
+      name: `Location at ${lat.toFixed(6)}, ${lng.toFixed(6)}`,
+      address: "Custom location",
+      coordinates: { lat, lng },
+    };
+    handleAddLocation(newLocation);
+  }, [handleAddLocation]);
 
   return (
     <div className="h-[calc(100vh-84px)] flex">
@@ -49,26 +60,14 @@ export function LocationMapPanel() {
 
       {/* Map */}
       <div className="flex-1 relative">
-        <Card className="absolute inset-0 m-4 overflow-hidden">
-          <div className="relative h-full bg-gray-100">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <p className="text-gray-500">
-                Map functionality temporarily disabled.
-                <br />
-                Click to add a location:
-              </p>
-            </div>
-            <div 
-              className="absolute inset-0 cursor-pointer"
-              onClick={() => handleAddLocation({
-                id: crypto.randomUUID(),
-                name: `Location at ${lat.toFixed(6)}, ${lng.toFixed(6)}`,
-                address: "Custom location",
-                coordinates: { lat, lng }
-              })}
-            />
-          </div>
-        </Card>
+        <LocationMap
+          locations={locations}
+          selectedLocation={selectedLocation}
+          onMarkerClick={setSelectedLocation}
+          onMarkerDragStart={() => {}}
+          onMarkerDragEnd={handleMarkerDragEnd}
+          onMapClick={handleMapClick}
+        />
       </div>
     </div>
   );
