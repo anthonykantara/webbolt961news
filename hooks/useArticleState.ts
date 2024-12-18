@@ -6,7 +6,8 @@ import type { ArticleStatus, ArticleContent, TimeTrackingData } from "@/lib/type
 export function useArticleState() {
   const [content, setContent] = useState<ArticleContent>({
     headline: "",
-    blocks: []
+    blocks: [],
+    story: ""
   });
   
   const [status, setStatus] = useState<ArticleStatus>("draft");
@@ -23,6 +24,8 @@ export function useArticleState() {
   const handleContentChange = (field: keyof ArticleContent, value: any) => {
     setContent(prev => ({ ...prev, [field]: value }));
   };
+
+  const handleScheduleToggle = () => setIsScheduled(!isScheduled)
 
   const handleUnpublish = () => {
     if (status === "published") {
@@ -46,7 +49,7 @@ export function useArticleState() {
     onContentChange: handleContentChange,
     onAuthorsChange: setAuthors,
     onSponsoredChange: setIsSponsored,
-    onScheduleToggle: setIsScheduled,
+    onScheduleToggle: handleScheduleToggle,
     onScheduleChange: setSchedule,
     onUnpublish: handleUnpublish,
     onDelete: handleDelete

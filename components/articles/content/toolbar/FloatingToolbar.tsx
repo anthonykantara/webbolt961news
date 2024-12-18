@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils/styles";
 import { ToolbarButton } from "./ToolbarButton";
 import { LinkInput } from "./LinkInput";
@@ -23,27 +23,59 @@ interface FloatingToolbarProps {
 export function FloatingToolbar({ onFormat }: FloatingToolbarProps) {
   const [showLinkInput, setShowLinkInput] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [position, setPosition] = useState({ x: 100, y: 120 }); // Initial position
+  const [isDragging, setIsDragging] = useState(false);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const handleMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    setIsDragging(true);
+    setOffset({
+      x: e.clientX - position.x,
+      y: e.clientY - position.y
+    });
+  }, [position]);
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (isDragging) {
+      setPosition({
+        x: e.clientX - offset.x,
+        y: e.clientY - offset.y
+      });
+    }
+  }, [isDragging, offset]);
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false);
+  }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    } else {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    }
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   return (
     <div 
       className={cn(
-        "fixed left-[calc(20%-200px)] top-[120px]",
+        "fixed",
         "flex flex-col items-center gap-1 p-2",
         "bg-white/90 backdrop-blur-sm rounded-lg shadow-lg",
         "border border-gray-200",
         "transition-all duration-200",
-        "z-50"
+        "z-50",
+        "cursor-move"
       )}
-      style={{ transform: `translateY(${scrollY}px)` }}
+      style={{ top: `${position.y}px`, left: `${position.x}px` }}
+      onMouseDown={handleMouseDown}
     >
       <ToolbarButton
         icon={Bold}

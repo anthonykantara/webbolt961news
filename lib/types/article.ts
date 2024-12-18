@@ -8,14 +8,6 @@ export interface Block {
   content: string;
 }
 
-export type BlockType = "text" | "list" | "image" | "embed";
-
-export interface Block {
-  id: string;
-  type: BlockType;
-  content: string;
-}
-
 export interface Language {
   code: string;
   name: string;
@@ -38,6 +30,7 @@ export interface ArticleContent {
   headline: string;
   blocks: Block[];
   seoKeyword?: string;
+  story: string;
 }
 
 export interface Article {

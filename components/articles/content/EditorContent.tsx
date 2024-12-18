@@ -15,8 +15,9 @@ interface EditorContentProps {
   content: {
     headline: string;
     blocks: Block[];
+    story: string;
   };
-  onChange: (field: "headline" | "blocks", value: any) => void;
+  onChange: (field: "headline" | "blocks" | "story", value: any) => void;
   onSave: () => void;
 }
 
@@ -73,8 +74,12 @@ export function EditorContent({ content, onChange, onSave }: EditorContentProps)
   const handleStoryChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange("story", e.target.value);
   };
+  
   const handleStoryKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    console.log("handleStoryKeyDown triggered")
+    
     if (e.key === "Enter" && !e.shiftKey) {
+      console.log("Enter pressed")
       e.preventDefault();
       const target = e.currentTarget;
       const { selectionStart } = target;
@@ -126,6 +131,7 @@ export function EditorContent({ content, onChange, onSave }: EditorContentProps)
           <Textarea
             value={content.story}
             onChange={handleStoryChange}
+            onKeyDown={handleStoryKeyDown}
             placeholder="Write your story..."
             className={cn(
               "w-[800px] min-h-[400px] resize-none",
