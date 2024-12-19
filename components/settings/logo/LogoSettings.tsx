@@ -5,13 +5,15 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Upload, X } from "lucide-react";
+import { Upload, X, Image as ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils/styles";
 import Image from "next/image";
+import { FaviconUpload } from "./FaviconUpload";
 
 export function LogoSettings() {
   const [dashboardLogo, setDashboardLogo] = useState<string | null>(null);
   const [frontendLogo, setFrontendLogo] = useState<string | null>(null);
+  const [favicon, setFavicon] = useState<string | null>(null);
 
   const handleLogoUpload = (file: File, type: "dashboard" | "frontend") => {
     const url = URL.createObjectURL(file);
@@ -33,7 +35,7 @@ export function LogoSettings() {
   return (
     <div className="space-y-6 max-w-2xl">
       <div className="space-y-6">
-        <h2 className="text-lg font-semibold mb-4">Dashboard Logo</h2>
+        <h2 className="text-lg font-semibold">Dashboard Logo</h2>
         <div className="space-y-4">
           {dashboardLogo ? (
             <div className="relative w-[200px]">
@@ -83,7 +85,7 @@ export function LogoSettings() {
       </div>
 
       <div className="space-y-6 pt-8 border-t">
-        <h2 className="text-lg font-semibold mb-4">Frontend Logo</h2>
+        <h2 className="text-lg font-semibold">Frontend Logo</h2>
         <div className="space-y-4">
           {frontendLogo ? (
             <div className="relative w-[200px]">
@@ -130,6 +132,14 @@ export function LogoSettings() {
             Recommended size: 200x60px (PNG or SVG)
           </p>
         </div>
+      </div>
+      
+      <div className="space-y-6 pt-8 border-t">
+        <h2 className="text-lg font-semibold">Favicon</h2>
+        <FaviconUpload
+          favicon={favicon}
+          onFaviconChange={setFavicon}
+        />
       </div>
     </div>
   );

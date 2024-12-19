@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Eye, Users, DollarSign, Share, MessageSquare, Smile } from "lucide-react";
 import type { Metric } from "@/lib/types/dashboard";
 
 const MOCK_METRICS: Metric[] = [
@@ -26,15 +27,21 @@ const MOCK_METRICS: Metric[] = [
     value: 15420,
     change: 25,
     trend: "up",
-    icon: "DollarSign"
+    icon: {
+      Icon: DollarSign,
+      color: "text-blue-500"
+    }
   },
   {
     id: "shares",
-    label: "Shares",
+    label: "Total Shares",
     value: 8976,
     change: 8,
     trend: "up",
-    icon: "Share2"
+    icon: {
+      Icon: Share,
+      color: "text-orange-500"
+    }
   },
   {
     id: "comments",

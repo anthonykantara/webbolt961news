@@ -6,7 +6,6 @@ import type { ArticleStatus, ArticleContent, TimeTrackingData } from "@/lib/type
 export function useArticleState() {
   const [content, setContent] = useState<ArticleContent>({
     headline: "",
-    blocks: [],
     story: ""
   });
   

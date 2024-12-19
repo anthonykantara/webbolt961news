@@ -33,6 +33,13 @@ export function FeaturedImageGenerator({ seoKeyword = "" }: FeaturedImageGenerat
   const [isComplete, setIsComplete] = useState(false);
   const [verticalMode, setVerticalMode] = useState<"first" | "second" | "stacked">("stacked");
 
+  // Reset completion state when images change
+  useEffect(() => {
+    if (horizontalConfig.images.length > 0) {
+      setIsComplete(false);
+    }
+  }, [horizontalConfig.images]);
+
   useEffect(() => {
     // Update featured image when horizontal config changes
     if (horizontalConfig.images.length > 0) {
@@ -136,7 +143,7 @@ export function FeaturedImageGenerator({ seoKeyword = "" }: FeaturedImageGenerat
         <EnhanceSection
           onEnhance={handleEnhance}
           isEnhancing={isEnhancing}
-          disabled={horizontalConfig.images.length === 0 || isComplete}
+          disabled={horizontalConfig.images.length === 0}
         />
 
         {isComplete && (

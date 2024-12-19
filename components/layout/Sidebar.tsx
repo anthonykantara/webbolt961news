@@ -16,8 +16,11 @@ import {
   Newspaper,
   Video,
   Image,
+  Calendar,
+  Check,
   ChevronLeft
 } from "lucide-react";
+import { NotificationBell } from "@/components/notifications/NotificationBell";
 import { UserProfile } from "./sidebar/UserProfile";
 import { Logo } from "./sidebar/Logo";
 
@@ -46,7 +49,7 @@ const NAVIGATION_ITEMS = [
     href: "/news/content",
     subItems: [
       {
-        label: "Article",
+        label: "Articles",
         href: "/news/content/articles",
         icon: Newspaper
       },
@@ -56,9 +59,19 @@ const NAVIGATION_ITEMS = [
         icon: Video
       },
       {
+        label: "Workflow",
+        href: "/news/content/workflow",
+        icon: Check
+      },
+      {
         label: "Media",
         href: "/news/content/media",
-        icon: Image
+        icon: Image,
+      },
+      {
+        label: "Calendar",
+        href: "/news/content/calendar", 
+        icon: Calendar
       }
     ]
   },
@@ -107,7 +120,7 @@ export function Sidebar() {
     )}>
       <style jsx global>{`
         :root {
-          --sidebar-width: ${isCollapsed ? "72px" : "220px"};
+          icon: Calendar1
         }
       `}</style>
       <div className={cn(

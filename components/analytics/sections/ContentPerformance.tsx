@@ -4,8 +4,10 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Search, ArrowUpDown } from "lucide-react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"; 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Search, ArrowUpDown, FileText, Video, Play, Send, MessageSquare, Heart, DollarSign, Users } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import type { DateRange } from "../utils/types";
 
@@ -82,10 +84,14 @@ export function ContentPerformance({ dateRange }: ContentPerformanceProps) {
   };
 
   return (
+   <TooltipProvider>
     <Card className="p-6">
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold">Content Performance</h3>
+          <div className="flex items-center gap-2">
+            <FileText className="h-5 w-5 text-gray-500" />
+            <h3 className="text-lg font-semibold">Content Performance</h3>
+          </div>
           <div className="flex items-center gap-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -116,38 +122,44 @@ export function ContentPerformance({ dateRange }: ContentPerformanceProps) {
               <TableRow>
                 <TableHead>Title</TableHead>
                 <TableHead>Type</TableHead>
-                <TableHead onClick={() => handleSort("views")} className="cursor-pointer">
+                <TableHead onClick={() => handleSort("views")} className="cursor-pointer text-right">
                   <div className="flex items-center gap-2">
+                    <Eye className="h-4 w-4 text-gray-500" />
                     Views
                     <ArrowUpDown className="h-4 w-4" />
                   </div>
                 </TableHead>
-                <TableHead onClick={() => handleSort("revenue")} className="cursor-pointer">
+                <TableHead onClick={() => handleSort("revenue")} className="cursor-pointer text-right">
                   <div className="flex items-center gap-2">
+                    <DollarSign className="h-4 w-4 text-gray-500" />
                     Revenue
                     <ArrowUpDown className="h-4 w-4" />
                   </div>
                 </TableHead>
-                <TableHead onClick={() => handleSort("registrations")} className="cursor-pointer">
+                <TableHead onClick={() => handleSort("registrations")} className="cursor-pointer text-right">
                   <div className="flex items-center gap-2">
+                    <Users className="h-4 w-4 text-gray-500" />
                     Registrations
                     <ArrowUpDown className="h-4 w-4" />
                   </div>
                 </TableHead>
-                <TableHead onClick={() => handleSort("reactions")} className="cursor-pointer">
+                <TableHead onClick={() => handleSort("reactions")} className="cursor-pointer text-right">
                   <div className="flex items-center gap-2">
+                    <Heart className="h-4 w-4 text-gray-500" />
                     Reactions
                     <ArrowUpDown className="h-4 w-4" />
                   </div>
                 </TableHead>
-                <TableHead onClick={() => handleSort("comments")} className="cursor-pointer">
+                <TableHead onClick={() => handleSort("comments")} className="cursor-pointer text-right">
                   <div className="flex items-center gap-2">
+                    <MessageSquare className="h-4 w-4 text-gray-500" />
                     Comments
                     <ArrowUpDown className="h-4 w-4" />
                   </div>
                 </TableHead>
-                <TableHead onClick={() => handleSort("shares")} className="cursor-pointer">
+                <TableHead onClick={() => handleSort("shares")} className="cursor-pointer text-right">
                   <div className="flex items-center gap-2">
+                    <Send className="h-4 w-4 text-gray-500 rotate-45" />
                     Shares
                     <ArrowUpDown className="h-4 w-4" />
                   </div>
@@ -161,14 +173,28 @@ export function ContentPerformance({ dateRange }: ContentPerformanceProps) {
                   <TableCell className="font-medium max-w-[300px] truncate">
                     {item.title}
                   </TableCell>
-                  <TableCell className="capitalize">{item.type}</TableCell>
-                  <TableCell>{formatNumber(item.views)}</TableCell>
-                  <TableCell>${formatNumber(item.revenue)}</TableCell>
-                  <TableCell>{formatNumber(item.registrations)}</TableCell>
-                  <TableCell>{formatNumber(item.reactions)}</TableCell>
-                  <TableCell>{formatNumber(item.comments)}</TableCell>
-                  <TableCell>{formatNumber(item.shares)}</TableCell>
-                  <TableCell>{item.journalist}</TableCell>
+                  <TableCell>
+                    {item.type === "article" && <FileText className="h-4 w-4 text-blue-500" />}
+                    {item.type === "video" && <Video className="h-4 w-4 text-purple-500" />}
+                    {item.type === "clip" && <Play className="h-4 w-4 text-[#FF0000] fill-current" />}
+                  </TableCell>
+                  <TableCell className="text-right">{formatNumber(item.views)}</TableCell>
+                  <TableCell className="text-right">${formatNumber(item.revenue)}</TableCell>
+                  <TableCell className="text-right">{formatNumber(item.registrations)}</TableCell>
+                  <TableCell className="text-right">{formatNumber(item.reactions)}</TableCell>
+                  <TableCell className="text-right">{formatNumber(item.comments)}</TableCell>
+                  <TableCell className="text-right">{formatNumber(item.shares)}</TableCell>
+                  <TableCell>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Avatar className="h-8 w-8 ring-2 ring-[#FF0000]/10 hover:ring-[#FF0000]/20 transition-all">
+                          <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${item.journalist}`} />
+                          <AvatarFallback>{item.journalist[0]}</AvatarFallback>
+                        </Avatar>
+                      </TooltipTrigger>
+                      <TooltipContent>{item.journalist}</TooltipContent>
+                    </Tooltip>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -176,6 +202,7 @@ export function ContentPerformance({ dateRange }: ContentPerformanceProps) {
         </div>
       </div>
     </Card>
+   </TooltipProvider>
   );
 }
 

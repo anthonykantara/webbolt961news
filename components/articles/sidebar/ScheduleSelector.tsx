@@ -1,13 +1,12 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/components/ui/button"; 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { DateTimeSelector } from "./schedule/DateTimeSelector";
 import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 interface ScheduleSelectorProps {
   isScheduled: boolean;
@@ -22,32 +21,6 @@ export function ScheduleSelector({
   onScheduleChange,
   scheduledDate 
 }: ScheduleSelectorProps) {
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(scheduledDate || undefined);
-  const [selectedTime, setSelectedTime] = useState(
-    scheduledDate ? 
-      `${String(scheduledDate.getHours()).padStart(2, '0')}:${String(scheduledDate.getMinutes()).padStart(2, '0')}` : 
-      ""
-  );
-
-  const handleDateSelect = (date: Date | undefined) => {
-    setSelectedDate(date);
-    if (date && selectedTime && onScheduleChange) {
-      const [hours, minutes] = selectedTime.split(':').map(Number);
-      const newDate = new Date(date);
-      newDate.setHours(hours, minutes);
-      onScheduleChange(newDate);
-    }
-  };
-
-  const handleTimeChange = (time: string) => {
-    setSelectedTime(time);
-    if (selectedDate && time && onScheduleChange) {
-      const [hours, minutes] = time.split(':').map(Number);
-      const newDate = new Date(selectedDate);
-      newDate.setHours(hours, minutes);
-      onScheduleChange(newDate);
-    }
-  };
   return (
     <Card className="p-4">
       <div className="flex items-center justify-between mb-3">
@@ -71,45 +44,30 @@ export function ScheduleSelector({
       </div>
       
       {isScheduled && (
-        <div className="mt-4 space-y-4">
-          <div className="grid gap-2">
-            <Label>Date</Label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className={cn(
-                    "justify-start text-left font-normal",
-                    !selectedDate && "text-muted-foreground"
-                  )}
-                >
-                  {selectedDate ? (
-                    selectedDate.toLocaleDateString()
-                  ) : (
-                    "Select date"
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={handleDateSelect}
-                  initialFocus
-                />
-              </PopoverContent>
-            </Popover>
-          </div>
-          
-          <div className="grid gap-2">
-            <Label>Time</Label>
-            <Input
-              type="time"
-              value={selectedTime}
-              onChange={(e) => handleTimeChange(e.target.value)}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full mt-4 justify-start text-left font-normal",
+                !scheduledDate && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {scheduledDate ? (
+                format(scheduledDate, "PPP 'at' p")
+              ) : (
+                "Pick date and time"
+              )}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-4" align="start">
+            <DateTimeSelector
+              selectedDate={scheduledDate}
+              onSelect={onScheduleChange}
             />
-          </div>
-        </div>
+          </PopoverContent>
+        </Popover>
       )}
     </Card>
   );

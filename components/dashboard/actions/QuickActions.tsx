@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export function QuickActions() {
   const router = useRouter();
@@ -33,11 +34,18 @@ export function QuickActions() {
             <Button
               key={action.label}
               variant="outline"
-              className="h-auto py-4 flex flex-col items-center gap-2"
+              className={cn(
+                "h-auto py-4 flex flex-col items-center gap-2",
+                "hover:bg-gray-50 transition-colors"
+              )}
               onClick={() => router.push(action.href)}
             >
-              <div className={`p-2 rounded-lg ${action.color}`}>
-                <Icon className="h-5 w-5 text-white" />
+              <div className={cn(
+                "p-2 rounded-lg",
+                action.color,
+                "transition-colors duration-200"
+              )}>
+                <Icon className="h-5 w-5 text-white transition-transform duration-200" />
               </div>
               <span className="text-sm">{action.label}</span>
             </Button>

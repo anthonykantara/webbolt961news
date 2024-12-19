@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"; 
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Check, ChevronsUpDown, Search, Sparkles, Star } from "lucide-react";
+import { Check, ChevronsUpDown, Search, Sparkles, Star, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils/styles";
+import { useSettings } from "@/lib/hooks/useSettings";
+import type { ArticleContent } from "@/lib/types/article";
 
 const SECTIONS = [
   { id: "news", label: "News" },
@@ -29,30 +31,53 @@ const TOPICS = [
   { id: "transportation", label: "Transportation" }
 ];
 
-export function SectionPanel() {
+interface SectionPanelProps {
+  content?: ArticleContent;
+}
+
+export function SectionPanel({ content }: SectionPanelProps) {
   const [open, setOpen] = useState(false);
   const [selectedSections, setSelectedSections] = useState<string[]>([]);
   const [primarySection, setPrimarySection] = useState<string | null>(null);
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [recommendations, setRecommendations] = useState<{
     sections: string[];
     topics: string[];
   }>({ sections: [], topics: [] });
+  const { settings } = useSettings();
 
   useEffect(() => {
-    // Simulate AI analysis
-    setRecommendations({
-      sections: ["news", "business"],
-      topics: ["urban-planning", "development", "infrastructure"]
-    });
+    const analyzeContent = async () => {
+      if (!content?.story) return;
+      
+      setIsAnalyzing(true);
+      try {
+        // In a real app, call your AI API here using the categorization prompt
+        const prompt = settings.prompts.content.categorization;
+        
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        setRecommendations({
+          sections: ["news", "business"],
+          topics: ["urban-planning", "development", "infrastructure"]
+        });
+        
+        // Auto-select recommended sections and topics
+        setSelectedSections(["news", "business"]);
+        setPrimarySection("news");
+        setSelectedTopics(["urban-planning", "development", "infrastructure"]);
+      } catch (error) {
+        console.error("Failed to analyze content:", error);
+      } finally {
+        setIsAnalyzing(false);
+      }
+    };
 
-    if (selectedSections.length === 0) {
-      setSelectedSections(["news", "business"]);
-      setPrimarySection("news");
-      setSelectedTopics(["urban-planning", "development", "infrastructure"]);
-    }
-  }, [selectedSections.length]);
+    analyzeContent();
+  }, [content?.story, settings.prompts.content.categorization]);
 
   const handleSectionToggle = (sectionId: string) => {
     setSelectedSections(prev => {
