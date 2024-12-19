@@ -16,12 +16,11 @@ export function ArticleEditor() {
   const router = useRouter();
   const [elapsedTime, setElapsedTime] = useState(0);
   const [activeSection, setActiveSection] = useState("content");
-  const [isScheduled, setIsScheduled] = useState(false);
-  const [scheduledDate, setScheduledDate] = useState<Date | null>(null);
   const {
     content,
     status,
     authors,
+    isScheduled,
     isSponsored,
     timeTracking,
     schedule,
@@ -29,6 +28,7 @@ export function ArticleEditor() {
     onAuthorsChange,
     onSponsoredChange,
     onScheduleChange,
+    onScheduleToggle,
     onUnpublish,
     onDelete
   } = useArticleState(); 
@@ -69,6 +69,10 @@ export function ArticleEditor() {
       <EditorContent
         content={content}
         onChange={onContentChange}
+        // implement onSave logic
+        onSave={function (): void {
+          throw new Error("Function not implemented.");
+        }} 
       />
     );
   };
@@ -94,15 +98,14 @@ export function ArticleEditor() {
               activeSection={activeSection}
               status={status}
               isScheduled={isScheduled}
-              scheduledDate={scheduledDate}
+              scheduledDate={schedule}
               authors={authors}
               isSponsored={isSponsored}
-              schedule={schedule}
               content={content}
               timeTracking={timeTracking}
               onAuthorsChange={onAuthorsChange}
-              onScheduleToggle={() => setIsScheduled(!isScheduled)}
-              onScheduleChange={setScheduledDate}
+              onScheduleToggle={onScheduleToggle}
+              onScheduleChange={onScheduleChange}
               onSponsoredChange={onSponsoredChange}
               onUnpublish={onUnpublish}
               onDelete={handleDelete}

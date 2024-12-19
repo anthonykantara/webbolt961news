@@ -8,7 +8,6 @@ import { TimeTracking } from "../TimeTracking";
 import { ActionButtons } from "../ActionButtons";
 import { NotesSection } from "./content/NotesSection";
 import { SponsoredSection } from "./content/SponsoredSection";
-import { cn } from "@/lib/utils/styles";
 import type { ArticleStatus, TimeTrackingData, ArticleContent } from "@/lib/types/article";
 
 interface ContentPanelProps {
@@ -46,7 +45,7 @@ export function ContentPanel({
     <>
       <StatusSelector value={status} />
       <AuthorSelector value={authors} onChange={onAuthorsChange} />
-      <ScheduleSelector 
+      <ScheduleSelector
         isScheduled={isScheduled}
         scheduledDate={scheduledDate}
         onToggle={onScheduleToggle}
@@ -63,6 +62,10 @@ export function ContentPanel({
         status={status}
         onUnpublish={onUnpublish}
         onDelete={onDelete}
+        // Implement save logic
+        onSave={function (): void {
+          throw new Error("Function not implemented.");
+        }}
       />
     </>
   );

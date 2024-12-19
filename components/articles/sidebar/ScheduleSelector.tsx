@@ -22,14 +22,14 @@ export function ScheduleSelector({
   onScheduleChange,
   scheduledDate 
 }: ScheduleSelectorProps) {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(scheduledDate || null);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(scheduledDate || undefined);
   const [selectedTime, setSelectedTime] = useState(
     scheduledDate ? 
       `${String(scheduledDate.getHours()).padStart(2, '0')}:${String(scheduledDate.getMinutes()).padStart(2, '0')}` : 
       ""
   );
 
-  const handleDateSelect = (date: Date | null) => {
+  const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date);
     if (date && selectedTime && onScheduleChange) {
       const [hours, minutes] = selectedTime.split(':').map(Number);

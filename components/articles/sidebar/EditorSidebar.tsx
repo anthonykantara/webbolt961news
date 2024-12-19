@@ -3,8 +3,6 @@
 import { ContentPanel } from "./panels/ContentPanel";
 import { SectionPanel } from "./panels/SectionPanel";
 import { SeoPanel } from "./panels/SeoPanel";
-import { LocationPanel } from "./panels/LocationPanel";
-import { TranslatePanel } from "./panels/TranslatePanel";
 import { EditorPanel } from "./panels/EditorPanel";
 import { DistributePanel } from "./panels/DistributePanel";
 import { cn } from "@/lib/utils/styles";
