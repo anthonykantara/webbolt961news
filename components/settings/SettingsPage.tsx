@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LogoSettings } from "./logo/LogoSettings";
 import { LanguageSettings } from "./language/LanguageSettings";
 import { PromptsSettings } from "./prompts/PromptsSettings";
+import { SectionsManagement } from "@/components/sections/SectionsManagement";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils/styles";
 
@@ -29,6 +30,12 @@ export function SettingsPage() {
             )}>
               Languages
             </TabsTrigger>
+            <TabsTrigger value="sections" className={cn(
+              "flex-1 max-w-[200px] h-12 rounded-none border-b-2 border-transparent",
+              "data-[state=active]:border-[#FF0000] data-[state=active]:text-[#FF0000]"
+            )}>
+              Sections
+            </TabsTrigger>
             <TabsTrigger value="prompts" className={cn(
               "flex-1 max-w-[200px] h-12 rounded-none border-b-2 border-transparent",
               "data-[state=active]:border-[#FF0000] data-[state=active]:text-[#FF0000]"
@@ -44,6 +51,9 @@ export function SettingsPage() {
 
             <TabsContent value="languages" className="m-0">
               <LanguageSettings />
+            </TabsContent>
+            <TabsContent value="sections" className="m-0">
+              <SectionsManagement />
             </TabsContent>
             <TabsContent value="prompts" className="m-0">
               <PromptsSettings />

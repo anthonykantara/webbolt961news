@@ -28,9 +28,8 @@ export interface TimeTrackingData {
 
 export interface ArticleContent {
   headline: string;
-  blocks: Block[];
-  seoKeyword?: string;
   story: string;
+  seoKeyword?: string;
 }
 
 export interface Article {

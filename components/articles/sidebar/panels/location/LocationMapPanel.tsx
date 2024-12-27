@@ -18,7 +18,7 @@ export function LocationMapPanel() {
   const handleAddLocation = useCallback((location: Location) => {
     setLocations(prev => [...prev, location]);
     setSelectedLocation(location);
-  }, {});
+  }, []);
 
   const handleRemoveLocation = useCallback((locationId: string) => {
     setLocations(prev => prev.filter(loc => loc.id !== locationId));
@@ -64,7 +64,7 @@ export function LocationMapPanel() {
           locations={locations}
           selectedLocation={selectedLocation}
           onMarkerClick={setSelectedLocation}
-          onMarkerDragStart={() => {}}
+          onMarkerDragStart={() => setIsDragging(true)}
           onMarkerDragEnd={handleMarkerDragEnd}
           onMapClick={handleMapClick}
         />

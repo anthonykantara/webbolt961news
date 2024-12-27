@@ -3,10 +3,16 @@
 import { useState, useEffect, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"; 
 import { Sparkles, Link as LinkIcon, Copy } from "lucide-react";
 import { cn } from "@/lib/utils/styles";
 import { KeywordInput } from "./KeywordInput";
+import { useSettings } from "@/lib/hooks/useSettings";
+import type { ArticleContent } from "@/lib/types/article";
+
+interface SeoPanelProps {
+  content?: ArticleContent;
+}
 
 interface RelatedArticle {
   id: string;
@@ -32,12 +38,14 @@ const MOCK_RELATED: RelatedArticle[] = [
   }
 ];
 
-export function SeoPanel() {
+export function SeoPanel({ content }: SeoPanelProps) {
   const [searchTitle, setSearchTitle] = useState("");
   const [searchDescription, setSearchDescription] = useState("");
   const [permalink, setPermalink] = useState("");
   const [primaryKeyword, setPrimaryKeyword] = useState<string>("");
   const [secondaryKeywords, setSecondaryKeywords] = useState<string[]>([]);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const { settings } = useSettings();
 
   // Simulate Arze recommendations
   useEffect(() => {
@@ -52,25 +60,74 @@ export function SeoPanel() {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleGenerateSEO = async () => {
+    if (!content?.story) return;
+    
+    setIsGenerating(true);
+    try {
+      // In a real app, call your AI API here using the SEO prompt
+      const prompt = settings.prompts.content.seo;
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Mock response
+      setSearchTitle("Major $500M Urban Renewal Project Announced for Downtown Beirut");
+      setSearchDescription("Beirut announces comprehensive $500M urban renewal project focusing on heritage preservation, green spaces, and smart city integration. Learn about the transformative plans for the historic city center.");
+      setPermalink("urban-renewal-project-downtown-beirut");
+      setPrimaryKeyword("Urban Development Beirut");
+      setSecondaryKeywords(["heritage preservation", "smart city", "downtown Beirut"]);
+    } catch (error) {
+      console.error("Failed to generate SEO:", error);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   const handleCopyLink = (url: string) => {
     navigator.clipboard.writeText(url);
   };
 
   return (
     <div className="space-y-8">
-      <div className="relative space-y-4">
-        <div className="flex items-center justify-center">
-          <div className="flex items-center gap-1.5 text-xs">
-            <div className="relative">
-              <Sparkles className="h-3.5 w-3.5 text-red-500 animate-pulse" />
-              <div className="absolute inset-0 bg-red-500/20 blur-sm animate-pulse" />
-            </div>
-            <span className="bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent font-medium">
-              Arze recommended
-            </span>
+      <div className="flex items-center justify-center">
+        <div className="flex items-center gap-1.5 text-xs">
+          <div className="relative">
+            <Sparkles className="h-3.5 w-3.5 text-red-500 animate-pulse" />
+            <div className="absolute inset-0 bg-red-500/20 blur-sm animate-pulse" />
           </div>
+          <span className="bg-gradient-to-r from-red-500 to-red-600 bg-clip-text text-transparent font-medium">
+            Arze-powered
+          </span>
         </div>
+      </div>
 
+      <Button
+        onClick={handleGenerateSEO}
+        disabled={!content?.story || isGenerating}
+        className={cn(
+          "w-full relative overflow-hidden transition-all duration-300",
+          "bg-gradient-to-r from-[#FF0000] via-[#FF2B2B] to-[#FF5555]",
+          "hover:from-[#E60000] hover:via-[#E62B2B] hover:to-[#E65555]",
+          "shadow-[0_0_20px_rgba(255,0,0,0.15)]",
+          "hover:shadow-[0_0_30px_rgba(255,0,0,0.2)]",
+          "border border-red-400/30",
+          "font-medium tracking-wide",
+          isGenerating && "animate-pulse"
+        )}
+      >
+        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.1)_50%,transparent_75%)] bg-[length:250%_250%] animate-shimmer" />
+        <div className="relative flex items-center justify-center gap-2">
+          <Sparkles className={cn(
+            "h-4 w-4",
+            isGenerating && "animate-spin"
+          )} />
+          <span className="text-white">
+            {isGenerating ? "Generating..." : "SEO"}
+          </span>
+        </div>
+      </Button>
+      <div className="relative space-y-4">
         <div className="space-y-6">
           <div className="space-y-4">
             <div className="space-y-2">

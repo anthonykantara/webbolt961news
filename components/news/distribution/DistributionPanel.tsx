@@ -5,7 +5,12 @@ import { ChannelColumn } from "./ChannelColumn";
 import { DISTRIBUTION_CHANNELS } from "@/lib/config/distribution";
 
 export function DistributionPanel() {
-  const [enabledChannels, setEnabledChannels] = useState<Set<string>>(new Set());
+  const [enabledChannels, setEnabledChannels] = useState<Set<string>>(
+    new Set([
+      ...DISTRIBUTION_CHANNELS.left.map(channel => channel.id),
+      ...DISTRIBUTION_CHANNELS.right.map(channel => channel.id)
+    ])
+  );
 
   const handleToggle = useCallback((channelId: string) => {
     setEnabledChannels((prev) => {

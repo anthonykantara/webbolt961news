@@ -19,3 +19,66 @@ export const CHART_COLORS = {
   quaternary: "hsl(var(--chart-4))",
   quinary: "hsl(var(--chart-5))"
 } as const;
+
+export const METRICS = [
+  {
+    label: "Views",
+    value: "34,999",
+    change: 20,
+    trend: "up",
+    icon: {
+      Icon: Eye,
+      color: "text-[#FF0000]"
+    }
+  },
+  {
+    label: "Active Users",
+    value: "12,543",
+    change: 15,
+    trend: "up",
+    icon: {
+      Icon: Users,
+      color: "text-[#FF0000]"
+    }
+  },
+  {
+    label: "Revenue",
+    value: "$15,420",
+    change: 25,
+    trend: "up",
+    icon: {
+      Icon: DollarSign,
+      color: "text-[#FF0000]"
+    }
+  },
+  {
+    label: "Total Shares",
+    value: "8,976",
+    change: 8,
+    trend: "up",
+    icon: {
+      Icon: Send,
+      color: "text-[#FF0000]"
+    }
+  },
+  {
+    label: "Comments",
+    value: "5,432",
+    change: 12,
+    trend: "up",
+    icon: {
+      Icon: MessageSquare,
+      color: "text-[#FF0000]"
+    }
+  },
+  {
+    label: "Reactions",
+    value: "28,976",
+    change: 18,
+    trend: "up",
+    icon: {
+      Icon: Heart, 
+      color: "text-[#FF0000]"
+    }
+  }
+];
